@@ -20,7 +20,7 @@ import { t, Trans } from "@lingui/macro";
 import NewReleases from "@material-ui/icons/NewReleases";
 import RebaseTimer from "../../components/RebaseTimer/RebaseTimer";
 import TabPanel from "../../components/TabPanel";
-import { getOhmTokenImage, getTokenImage, trim } from "../../helpers";
+import { getOgvTokenImage, getTokenImage, trim } from "../../helpers";
 import { changeApproval, changeStake } from "../../slices/StakeThunk";
 import "./stake.scss";
 import { useWeb3Context } from "src/hooks/web3Context";
@@ -40,8 +40,8 @@ function a11yProps(index: number) {
   };
 }
 
-const sOhmImg = getTokenImage("sohm");
-const ohmImg = getOhmTokenImage(16, 16);
+const sOgvImg = getTokenImage("sogv");
+const ogvImg = getOgvTokenImage(16, 16);
 
 function Stake() {
   const dispatch = useDispatch();
@@ -60,37 +60,37 @@ function Stake() {
   const fiveDayRate = useAppSelector(state => {
     return state.app.fiveDayRate;
   });
-  const ohmBalance = useAppSelector(state => {
-    return state.account.balances && state.account.balances.ohm;
+  const ogvBalance = useAppSelector(state => {
+    return state.account.balances && state.account.balances.ogv;
   });
-  const oldSohmBalance = useAppSelector(state => {
-    return state.account.balances && state.account.balances.oldsohm;
+  const oldSogvBalance = useAppSelector(state => {
+    return state.account.balances && state.account.balances.oldsogv;
   });
-  const sohmBalance = useAppSelector(state => {
-    return state.account.balances && state.account.balances.sohm;
+  const sogvBalance = useAppSelector(state => {
+    return state.account.balances && state.account.balances.sogv;
   });
-  const fsohmBalance = useAppSelector(state => {
-    return state.account.balances && state.account.balances.fsohm;
+  const fsogvBalance = useAppSelector(state => {
+    return state.account.balances && state.account.balances.fsogv;
   });
-  const wsohmBalance = useAppSelector(state => {
-    return state.account.balances && state.account.balances.wsohm;
+  const wsogvBalance = useAppSelector(state => {
+    return state.account.balances && state.account.balances.wsogv;
   });
-  const fiatDaowsohmBalance = useAppSelector(state => {
-    return state.account.balances && state.account.balances.fiatDaowsohm;
+  const fiatDaowsogvBalance = useAppSelector(state => {
+    return state.account.balances && state.account.balances.fiatDaowsogv;
   });
-  const fiatDaoAsSohm = Number(fiatDaowsohmBalance) * Number(currentIndex);
-  const gOhmBalance = useAppSelector(state => {
-    return state.account.balances && state.account.balances.gohm;
+  const fiatDaoAsSogv = Number(fiatDaowsogvBalance) * Number(currentIndex);
+  const gOgvBalance = useAppSelector(state => {
+    return state.account.balances && state.account.balances.gogv;
   });
-  const gOhmAsSohm = Number(gOhmBalance) * Number(currentIndex);
-  const wsohmAsSohm = useAppSelector(state => {
-    return state.account.balances && state.account.balances.wsohmAsSohm;
+  const gOgvAsSogv = Number(gOgvBalance) * Number(currentIndex);
+  const wsogvAsSogv = useAppSelector(state => {
+    return state.account.balances && state.account.balances.wsogvAsSogv;
   });
   const stakeAllowance = useAppSelector(state => {
-    return (state.account.staking && state.account.staking.ohmStake) || 0;
+    return (state.account.staking && state.account.staking.ogvStake) || 0;
   });
   const unstakeAllowance = useAppSelector(state => {
-    return (state.account.staking && state.account.staking.ohmUnstake) || 0;
+    return (state.account.staking && state.account.staking.ogvUnstake) || 0;
   });
   const stakingRebase = useAppSelector(state => {
     return state.app.stakingRebase || 0;
@@ -109,7 +109,7 @@ function Stake() {
   const inputTokenImages = useMemo(
     () =>
       Object.entries(tokens)
-        .filter(token => token[0] !== "sohm")
+        .filter(token => token[0] !== "sogv")
         .map(token => token[1].img)
         .slice(0, 3),
     [tokens],
@@ -117,9 +117,9 @@ function Stake() {
 
   const setMax = () => {
     if (view === 0) {
-      setQuantity(Number(ohmBalance));
+      setQuantity(Number(ogvBalance));
     } else {
-      setQuantity(Number(sohmBalance));
+      setQuantity(Number(sogvBalance));
     }
   };
 
@@ -136,12 +136,12 @@ function Stake() {
 
     // 1st catch if quantity > balance
     let gweiValue = ethers.utils.parseUnits(quantity.toString(), "gwei");
-    if (action === "stake" && gweiValue.gt(ethers.utils.parseUnits(ohmBalance, "gwei"))) {
-      return dispatch(error(t`You cannot stake more than your OHM balance.`));
+    if (action === "stake" && gweiValue.gt(ethers.utils.parseUnits(ogvBalance, "gwei"))) {
+      return dispatch(error(t`You cannot stake more than your OGV balance.`));
     }
 
-    if (action === "unstake" && gweiValue.gt(ethers.utils.parseUnits(sohmBalance, "gwei"))) {
-      return dispatch(error(t`You cannot unstake more than your sOHM balance.`));
+    if (action === "unstake" && gweiValue.gt(ethers.utils.parseUnits(sogvBalance, "gwei"))) {
+      return dispatch(error(t`You cannot unstake more than your sOGV balance.`));
     }
 
     await dispatch(changeStake({ address, action, value: quantity.toString(), provider, networkID: networkId }));
@@ -149,8 +149,8 @@ function Stake() {
 
   const hasAllowance = useCallback(
     token => {
-      if (token === "ohm") return stakeAllowance > 0;
-      if (token === "sohm") return unstakeAllowance > 0;
+      if (token === "ogv") return stakeAllowance > 0;
+      if (token === "sogv") return unstakeAllowance > 0;
       return 0;
     },
     [stakeAllowance, unstakeAllowance],
@@ -171,7 +171,7 @@ function Stake() {
   };
 
   const trimmedBalance = Number(
-    [sohmBalance, fsohmBalance, wsohmAsSohm, gOhmAsSohm, fiatDaoAsSohm]
+    [sogvBalance, fsogvBalance, wsogvAsSogv, gOgvAsSogv, fiatDaoAsSogv]
       .filter(Boolean)
       .map(balance => Number(balance))
       .reduce((a, b) => a + b, 0)
@@ -185,24 +185,24 @@ function Stake() {
   return (
     <div id="stake-view">
       <Zoom in={true} onEntered={() => setZoomed(true)}>
-        <Paper className={`ohm-card`}>
+        <Paper className={`ogv-card`}>
           <Grid container direction="column" spacing={2}>
             <Grid item>
               <div className="card-header">
                 <Typography variant="h5">Single Stake (3, 3)</Typography>
                 <RebaseTimer />
 
-                {address && Number(oldSohmBalance) > 0.01 && (
+                {address && Number(oldSogvBalance) > 0.01 && (
                   <Link
-                    className="migrate-sohm-button"
+                    className="migrate-sogv-button"
                     style={{ textDecoration: "none" }}
-                    href="https://docs.olympusdao.finance/using-the-website/migrate"
-                    aria-label="migrate-sohm"
+                    href="https://docs.olygivedao.finance/using-the-website/migrate"
+                    aria-label="migrate-sogv"
                     target="_blank"
                   >
                     <NewReleases viewBox="0 0 24 24" />
                     <Typography>
-                      <Trans>Migrate sOHM!</Trans>
+                      <Trans>Migrate sOGV!</Trans>
                     </Typography>
                   </Link>
                 )}
@@ -258,7 +258,7 @@ function Stake() {
                       </Typography>
                       <Typography variant="h4">
                         {currentIndex ? (
-                          <span data-testid="index-value">{trim(Number(currentIndex), 1)} OHM</span>
+                          <span data-testid="index-value">{trim(Number(currentIndex), 1)} OGV</span>
                         ) : (
                           <Skeleton width="150px" data-testid="index-loading" />
                         )}
@@ -276,7 +276,7 @@ function Stake() {
                     {modalButton}
                   </div>
                   <Typography variant="h6">
-                    <Trans>Connect your wallet to stake OHM</Trans>
+                    <Trans>Connect your wallet to stake OGV</Trans>
                   </Typography>
                 </div>
               ) : (
@@ -306,28 +306,28 @@ function Stake() {
                     <Grid container className="stake-action-row">
                       <Grid item xs={12} sm={8} className="stake-grid-item">
                         {address && !isAllowanceDataLoading ? (
-                          (!hasAllowance("ohm") && view === 0) || (!hasAllowance("sohm") && view === 1) ? (
+                          (!hasAllowance("ogv") && view === 0) || (!hasAllowance("sogv") && view === 1) ? (
                             <Box className="help-text">
                               <Typography variant="body1" className="stake-note" color="textSecondary">
                                 {view === 0 ? (
                                   <>
-                                    <Trans>First time staking</Trans> <b>OHM</b>?
+                                    <Trans>First time staking</Trans> <b>OGV</b>?
                                     <br />
-                                    <Trans>Please approve Olympus Dao to use your</Trans> <b>OHM</b>{" "}
+                                    <Trans>Please approve Olygive Dao to use your</Trans> <b>OGV</b>{" "}
                                     <Trans>for staking</Trans>.
                                   </>
                                 ) : (
                                   <>
-                                    <Trans>First time unstaking</Trans> <b>sOHM</b>?
+                                    <Trans>First time unstaking</Trans> <b>sOGV</b>?
                                     <br />
-                                    <Trans>Please approve Olympus Dao to use your</Trans> <b>sOHM</b>{" "}
+                                    <Trans>Please approve Olygive Dao to use your</Trans> <b>sOGV</b>{" "}
                                     <Trans>for unstaking</Trans>.
                                   </>
                                 )}
                               </Typography>
                             </Box>
                           ) : (
-                            <FormControl className="ohm-input" variant="outlined" color="primary">
+                            <FormControl className="ogv-input" variant="outlined" color="primary">
                               <InputLabel htmlFor="amount-input"></InputLabel>
                               <OutlinedInput
                                 id="amount-input"
@@ -356,7 +356,7 @@ function Stake() {
                           <Box m={-2}>
                             {isAllowanceDataLoading ? (
                               <Skeleton />
-                            ) : address && hasAllowance("ohm") ? (
+                            ) : address && hasAllowance("ogv") ? (
                               <Button
                                 className="stake-button"
                                 variant="contained"
@@ -366,7 +366,7 @@ function Stake() {
                                   onChangeStake("stake");
                                 }}
                               >
-                                {txnButtonText(pendingTransactions, "staking", t`Stake OHM`)}
+                                {txnButtonText(pendingTransactions, "staking", t`Stake OGV`)}
                               </Button>
                             ) : (
                               <Button
@@ -375,7 +375,7 @@ function Stake() {
                                 color="primary"
                                 disabled={isPendingTxn(pendingTransactions, "approve_staking")}
                                 onClick={() => {
-                                  onSeekApproval("ohm");
+                                  onSeekApproval("ogv");
                                 }}
                               >
                                 {txnButtonText(pendingTransactions, "approve_staking", t`Approve`)}
@@ -388,7 +388,7 @@ function Stake() {
                           <Box m={-2}>
                             {isAllowanceDataLoading ? (
                               <Skeleton />
-                            ) : address && hasAllowance("sohm") ? (
+                            ) : address && hasAllowance("sogv") ? (
                               <Button
                                 className="stake-button"
                                 variant="contained"
@@ -398,7 +398,7 @@ function Stake() {
                                   onChangeStake("unstake");
                                 }}
                               >
-                                {txnButtonText(pendingTransactions, "unstaking", t`Unstake OHM`)}
+                                {txnButtonText(pendingTransactions, "unstaking", t`Unstake OGV`)}
                               </Button>
                             ) : (
                               <Button
@@ -407,7 +407,7 @@ function Stake() {
                                 color="primary"
                                 disabled={isPendingTxn(pendingTransactions, "approve_unstaking")}
                                 onClick={() => {
-                                  onSeekApproval("sohm");
+                                  onSeekApproval("sogv");
                                 }}
                               >
                                 {txnButtonText(pendingTransactions, "approve_unstaking", t`Approve`)}
@@ -423,47 +423,47 @@ function Stake() {
                     <StakeRow
                       title={t`Unstaked Balance`}
                       id="user-balance"
-                      balance={`${trim(Number(ohmBalance), 4)} OHM`}
+                      balance={`${trim(Number(ogvBalance), 4)} OGV`}
                       {...{ isAppLoading }}
                     />
                     <StakeRow
                       title={t`Staked Balance`}
                       id="user-staked-balance"
-                      balance={`${trimmedBalance} sOHM`}
+                      balance={`${trimmedBalance} sOGV`}
                       {...{ isAppLoading }}
                     />
                     <StakeRow
                       title={t`Single Staking`}
-                      balance={`${trim(Number(sohmBalance), 4)} sOHM`}
+                      balance={`${trim(Number(sogvBalance), 4)} sOGV`}
                       indented
                       {...{ isAppLoading }}
                     />
                     <StakeRow
                       title={t`Staked Balance in Fuse`}
-                      balance={`${trim(Number(fsohmBalance), 4)} fsOHM`}
+                      balance={`${trim(Number(fsogvBalance), 4)} fsOGV`}
                       indented
                       {...{ isAppLoading }}
                     />
                     <StakeRow
                       title={t`Wrapped Balance`}
-                      balance={`${trim(Number(wsohmBalance), 4)} wsOHM`}
+                      balance={`${trim(Number(wsogvBalance), 4)} wsOGV`}
                       {...{ isAppLoading }}
                       indented
                     />
                     <StakeRow
                       title={t`Wrapped Balance in FiatDAO`}
-                      balance={`${trim(Number(fiatDaowsohmBalance), 4)} wsOHM`}
+                      balance={`${trim(Number(fiatDaowsogvBalance), 4)} wsOGV`}
                       {...{ isAppLoading }}
                       indented
                     />
                     <StakeRow
                       title={`${t`Wrapped Balance`} (v2)`}
-                      balance={`${trim(Number(gOhmBalance), 4)} gOHM`}
+                      balance={`${trim(Number(gOgvBalance), 4)} gOGV`}
                       indented
                       {...{ isAppLoading }}
                     />
                     <Divider color="secondary" />
-                    <StakeRow title={t`Next Reward Amount`} balance={`${nextRewardValue} sOHM`} {...{ isAppLoading }} />
+                    <StakeRow title={t`Next Reward Amount`} balance={`${nextRewardValue} sOGV`} {...{ isAppLoading }} />
                     <StakeRow
                       title={t`Next Reward Yield`}
                       balance={`${stakingRebasePercentage}%`}

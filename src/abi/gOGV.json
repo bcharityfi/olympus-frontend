@@ -9,7 +9,7 @@
         },
         {
           "internalType": "address",
-          "name": "_sOHM",
+          "name": "_sOGV",
           "type": "address"
         }
       ],
@@ -439,7 +439,7 @@
         },
         {
           "internalType": "address",
-          "name": "_sOHM",
+          "name": "_sOGV",
           "type": "address"
         }
       ],
@@ -513,10 +513,10 @@
     },
     {
       "inputs": [],
-      "name": "sOHM",
+      "name": "sOGV",
       "outputs": [
         {
-          "internalType": "contract IsOHM",
+          "internalType": "contract IsOGV",
           "name": "",
           "type": "address"
         }

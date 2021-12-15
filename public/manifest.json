@@ -1,8 +1,8 @@
 {
-  "short_name": "OlympusDAO",
+  "short_name": "OlygiveDAO",
   "start_url": ".",
   "homepage": "./",
-  "name": "OlympusDAO",
+  "name": "OlygiveDAO",
   "launch_path": "/public/index.html",
   "icons": [
     {

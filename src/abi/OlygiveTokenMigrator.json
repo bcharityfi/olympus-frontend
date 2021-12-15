@@ -4,12 +4,12 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "_oldOHM",
+          "name": "_oldOGV",
           "type": "address"
         },
         {
           "internalType": "address",
-          "name": "_oldsOHM",
+          "name": "_oldsOGV",
           "type": "address"
         },
         {
@@ -24,7 +24,7 @@
         },
         {
           "internalType": "address",
-          "name": "_oldwsOHM",
+          "name": "_oldwsOGV",
           "type": "address"
         },
         {
@@ -56,7 +56,7 @@
       "inputs": [
         {
           "indexed": true,
-          "internalType": "contract IOlympusAuthority",
+          "internalType": "contract IOlygiveAuthority",
           "name": "authority",
           "type": "address"
         }
@@ -133,7 +133,7 @@
       "name": "authority",
       "outputs": [
         {
-          "internalType": "contract IOlympusAuthority",
+          "internalType": "contract IOlygiveAuthority",
           "name": "",
           "type": "address"
         }
@@ -149,7 +149,7 @@
           "type": "uint256"
         },
         {
-          "internalType": "enum OlympusTokenMigrator.TYPE",
+          "internalType": "enum OlygiveTokenMigrator.TYPE",
           "name": "_to",
           "type": "uint8"
         }
@@ -174,10 +174,10 @@
     },
     {
       "inputs": [],
-      "name": "gOHM",
+      "name": "gOGV",
       "outputs": [
         {
-          "internalType": "contract IgOHM",
+          "internalType": "contract IgOGV",
           "name": "",
           "type": "address"
         }
@@ -193,12 +193,12 @@
           "type": "uint256"
         },
         {
-          "internalType": "enum OlympusTokenMigrator.TYPE",
+          "internalType": "enum OlygiveTokenMigrator.TYPE",
           "name": "_from",
           "type": "uint8"
         },
         {
-          "internalType": "enum OlympusTokenMigrator.TYPE",
+          "internalType": "enum OlygiveTokenMigrator.TYPE",
           "name": "_to",
           "type": "uint8"
         }
@@ -211,7 +211,7 @@
     {
       "inputs": [
         {
-          "internalType": "enum OlympusTokenMigrator.TYPE",
+          "internalType": "enum OlygiveTokenMigrator.TYPE",
           "name": "_to",
           "type": "uint8"
         }
@@ -235,12 +235,12 @@
         },
         {
           "internalType": "address",
-          "name": "_newOHM",
+          "name": "_newOGV",
           "type": "address"
         },
         {
           "internalType": "address",
-          "name": "_newsOHM",
+          "name": "_newsOGV",
           "type": "address"
         },
         {
@@ -302,7 +302,7 @@
     },
     {
       "inputs": [],
-      "name": "newOHM",
+      "name": "newOGV",
       "outputs": [
         {
           "internalType": "contract IERC20",
@@ -341,7 +341,7 @@
     },
     {
       "inputs": [],
-      "name": "ohmMigrated",
+      "name": "ogvMigrated",
       "outputs": [
         {
           "internalType": "bool",
@@ -354,7 +354,7 @@
     },
     {
       "inputs": [],
-      "name": "oldOHM",
+      "name": "oldOGV",
       "outputs": [
         {
           "internalType": "contract IERC20",
@@ -406,10 +406,10 @@
     },
     {
       "inputs": [],
-      "name": "oldsOHM",
+      "name": "oldsOGV",
       "outputs": [
         {
-          "internalType": "contract IsOHM",
+          "internalType": "contract IsOGV",
           "name": "",
           "type": "address"
         }
@@ -419,10 +419,10 @@
     },
     {
       "inputs": [],
-      "name": "oldwsOHM",
+      "name": "oldwsOGV",
       "outputs": [
         {
-          "internalType": "contract IwsOHM",
+          "internalType": "contract IwsOGV",
           "name": "",
           "type": "address"
         }
@@ -433,7 +433,7 @@
     {
       "inputs": [
         {
-          "internalType": "contract IOlympusAuthority",
+          "internalType": "contract IOlygiveAuthority",
           "name": "_newAuthority",
           "type": "address"
         }
@@ -447,11 +447,11 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "_gOHM",
+          "name": "_gOGV",
           "type": "address"
         }
       ],
-      "name": "setgOHM",
+      "name": "setgOGV",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"

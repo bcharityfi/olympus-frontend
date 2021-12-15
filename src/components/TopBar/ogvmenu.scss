@@ -1,22 +1,22 @@
-#ohm-menu-button {
+#ogv-menu-button {
   padding: 12px;
   svg {
     margin-right: 3px;
     color: inherit !important;
   }
 }
-.ohm-menu-button-hover {
+.ogv-menu-button-hover {
   z-index: 9;
 }
-#ohm-popper,
-#ohm-popper-pending {
+#ogv-popper,
+#ogv-popper-pending {
   z-index: 5;
   background-color: #00000003;
   backdrop-filter: blur(33px);
   -webkit-backdrop-filter: blur(33px);
   margin-top: 10px;
   border-radius: 10px;
-  .MuiPaper-root.ohm-menu {
+  .MuiPaper-root.ogv-menu {
     padding: 16px 6px;
     display: flex;
     flex-direction: column;
@@ -67,14 +67,14 @@
   }
 }
 
-.mobile #ohm-menu-button {
+.mobile #ogv-menu-button {
   padding: 0px;
   max-width: 40px !important;
   width: 40px !important;
 }
 
-.mobile #ohm-menu-button-hover {
-  .ohm-menu-button-text {
+.mobile #ogv-menu-button-hover {
+  .ogv-menu-button-text {
     display: none !important;
   }
 

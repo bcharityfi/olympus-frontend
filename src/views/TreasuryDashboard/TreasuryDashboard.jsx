@@ -2,14 +2,14 @@ import { memo } from "react";
 import "./treasury-dashboard.scss";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Paper, Grid, Box, Zoom, Container, useMediaQuery } from "@material-ui/core";
-import { MarketCap, OHMPrice, WSOHMPrice, CircSupply, BackingPerOHM, CurrentIndex } from "./components/Metric/Metric";
+import { MarketCap, OGVPrice, WSOGVPrice, CircSupply, BackingPerOGV, CurrentIndex } from "./components/Metric/Metric";
 
 import {
   TotalValueDepositedGraph,
   MarketValueGraph,
   RiskFreeValueGraph,
   ProtocolOwnedLiquidityGraph,
-  OHMStakedGraph,
+  OGVStakedGraph,
   RunwayAvailableGraph,
 } from "./components/Graph/Graph";
 
@@ -26,13 +26,13 @@ const TreasuryDashboard = memo(() => {
         }}
       >
         <Box className="hero-metrics">
-          <Paper className="ohm-card">
+          <Paper className="ogv-card">
             <Box display="flex" flexWrap="wrap" justifyContent="space-between" alignItems="center">
               <MarketCap />
-              <OHMPrice />
-              <WSOHMPrice />
+              <OGVPrice />
+              <WSOGVPrice />
               <CircSupply />
-              <BackingPerOHM />
+              <BackingPerOGV />
               <CurrentIndex />
             </Box>
           </Paper>
@@ -41,32 +41,32 @@ const TreasuryDashboard = memo(() => {
         <Zoom in={true}>
           <Grid container spacing={2} className="data-grid">
             <Grid item lg={6} md={6} sm={12} xs={12}>
-              <Paper className="ohm-card ohm-chart-card">
+              <Paper className="ogv-card ogv-chart-card">
                 <TotalValueDepositedGraph />
               </Paper>
             </Grid>
 
             <Grid item lg={6} md={6} sm={12} xs={12}>
-              <Paper className="ohm-card ohm-chart-card">
+              <Paper className="ogv-card ogv-chart-card">
                 <MarketValueGraph />
               </Paper>
             </Grid>
 
             <Grid item lg={6} md={6} sm={12} xs={12}>
-              <Paper className="ohm-card ohm-chart-card">
+              <Paper className="ogv-card ogv-chart-card">
                 <RiskFreeValueGraph />
               </Paper>
             </Grid>
 
             <Grid item lg={6} md={6} sm={12} xs={12}>
-              <Paper className="ohm-card">
+              <Paper className="ogv-card">
                 <ProtocolOwnedLiquidityGraph />
               </Paper>
             </Grid>
 
             {/*  Temporarily removed until correct data is in the graph */}
             {/* <Grid item lg={6} md={12} sm={12} xs={12}>
-              <Paper className="ohm-card">
+              <Paper className="ogv-card">
                 <Chart
                   type="bar"
                   data={data}
@@ -84,13 +84,13 @@ const TreasuryDashboard = memo(() => {
             </Grid> */}
 
             <Grid item lg={6} md={6} sm={12} xs={12}>
-              <Paper className="ohm-card">
-                <OHMStakedGraph />
+              <Paper className="ogv-card">
+                <OGVStakedGraph />
               </Paper>
             </Grid>
 
             <Grid item lg={6} md={6} sm={12} xs={12}>
-              <Paper className="ohm-card">
+              <Paper className="ogv-card">
                 <RunwayAvailableGraph />
               </Paper>
             </Grid>

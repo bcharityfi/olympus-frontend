@@ -5,7 +5,7 @@ import externalUrls from "./externalUrls";
 import { ReactComponent as StakeIcon } from "../../assets/icons/stake.svg";
 import { ReactComponent as BondIcon } from "../../assets/icons/bond.svg";
 import { ReactComponent as DashboardIcon } from "../../assets/icons/dashboard.svg";
-import { ReactComponent as OlympusIcon } from "../../assets/icons/olympus-nav-header.svg";
+import { ReactComponent as OlygiveIcon } from "../../assets/icons/olygive-nav-header.svg";
 import { ReactComponent as PoolTogetherIcon } from "../../assets/icons/33-together.svg";
 import { ReactComponent as ZapIcon } from "../../assets/icons/zap.svg";
 import { ReactComponent as NewIcon } from "../../assets/icons/new-icon.svg";
@@ -58,10 +58,10 @@ function NavContent() {
       <Box className="dapp-sidebar-inner" display="flex" justifyContent="space-between" flexDirection="column">
         <div className="dapp-menu-top">
           <Box className="branding-header">
-            <Link href="https://olympusdao.finance" target="_blank">
+            <Link href="https://olygivedao.finance" target="_blank">
               <SvgIcon
                 color="primary"
-                component={OlympusIcon}
+                component={OlygiveIcon}
                 viewBox="0 0 151 100"
                 style={{ minWdth: "151px", minHeight: "98px", width: "151px" }}
               />
@@ -128,7 +128,7 @@ function NavContent() {
                   </Link>
 
                   <Link
-                    href={"https://synapseprotocol.com/?inputCurrency=gOHM&outputCurrency=gOHM&outputChain=43114"}
+                    href={"https://synapseprotocol.com/?inputCurrency=gOGV&outputCurrency=gOGV&outputChain=43114"}
                     target="_blank"
                   >
                     <Typography variant="h6">
@@ -238,7 +238,7 @@ function NavContent() {
                   </Link>
 
                   <Link
-                    href={"https://synapseprotocol.com/?inputCurrency=gOHM&outputCurrency=gOHM&outputChain=43114"}
+                    href={"https://synapseprotocol.com/?inputCurrency=gOGV&outputCurrency=gOGV&outputChain=43114"}
                     target="_blank"
                   >
                     <Typography variant="h6">

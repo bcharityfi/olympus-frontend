@@ -77,7 +77,7 @@ export class ZapHelper {
     ownerAddress = ownerAddress.toLowerCase();
     const apiKey = EnvHelper.getZapperAPIKey();
     const response = await fetch(
-      `https://api.zapper.fi/v1/zap-in/olympus/approval-state?api_key=${apiKey}&ownerAddress=${ownerAddress}&sellTokenAddress=${tokenAddress}`,
+      `https://api.zapper.fi/v1/zap-in/olygive/approval-state?api_key=${apiKey}&ownerAddress=${ownerAddress}&sellTokenAddress=${tokenAddress}`,
     );
     const responseJson = await response.json();
     if (response.ok) {
@@ -96,7 +96,7 @@ export class ZapHelper {
     ownerAddress = ownerAddress.toLowerCase();
     const apiKey = EnvHelper.getZapperAPIKey();
     const response = await fetch(
-      `https://api.zapper.fi/v1/zap-in/olympus/approval-transaction?api_key=${apiKey}&ownerAddress=${ownerAddress}&sellTokenAddress=${tokenAddress}&gasPrice=${gasPrice}`,
+      `https://api.zapper.fi/v1/zap-in/olygive/approval-transaction?api_key=${apiKey}&ownerAddress=${ownerAddress}&sellTokenAddress=${tokenAddress}&gasPrice=${gasPrice}`,
     );
     const responseJson = await response.json();
     if (response.ok) {
@@ -117,7 +117,7 @@ export class ZapHelper {
     ownerAddress = ownerAddress.toLowerCase();
     const apiKey = EnvHelper.getZapperAPIKey();
     const response = await fetch(
-      `https://api.zapper.fi/v1/zap-in/vault/olympus/transaction?ownerAddress=${ownerAddress}&network=ethereum&sellAmount=${sellAmount}&sellTokenAddress=${tokenAddress}&poolAddress=${EnvHelper.getZapperPoolAddress()}&slippagePercentage=${slippagePercentage}&gasPrice=${gasPrice}&api_key=${apiKey}`,
+      `https://api.zapper.fi/v1/zap-in/vault/olygive/transaction?ownerAddress=${ownerAddress}&network=ethereum&sellAmount=${sellAmount}&sellTokenAddress=${tokenAddress}&poolAddress=${EnvHelper.getZapperPoolAddress()}&slippagePercentage=${slippagePercentage}&gasPrice=${gasPrice}&api_key=${apiKey}`,
     );
     const responseJson = await response.json();
     if (response.ok) {

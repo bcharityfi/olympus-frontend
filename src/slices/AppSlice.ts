@@ -1,26 +1,26 @@
 import { ethers } from "ethers";
 import { addresses } from "../constants";
-import { abi as OlympusStakingv2ABI } from "../abi/OlympusStakingv2.json";
-import { abi as sOHMv2 } from "../abi/sOhmv2.json";
+import { abi as OlygiveStakingv2ABI } from "../abi/OlygiveStakingv2.json";
+import { abi as sOGVv2 } from "../abi/sOgvv2.json";
 import { setAll, getTokenPrice, getMarketPrice } from "../helpers";
 import { NodeHelper } from "src/helpers/NodeHelper";
 import apollo from "../lib/apolloClient";
 import { createSlice, createSelector, createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "src/store";
 import { IBaseAsyncThunk } from "./interfaces";
-import { OlympusStakingv2, SOhmv2 } from "../typechain";
+import { OlygiveStakingv2, SOgvv2 } from "../typechain";
 
 interface IProtocolMetrics {
   readonly timestamp: string;
-  readonly ohmCirculatingSupply: string;
-  readonly sOhmCirculatingSupply: string;
+  readonly ogvCirculatingSupply: string;
+  readonly sOgvCirculatingSupply: string;
   readonly totalSupply: string;
-  readonly ohmPrice: string;
+  readonly ogvPrice: string;
   readonly marketCap: string;
   readonly totalValueLocked: string;
   readonly treasuryMarketValue: string;
   readonly nextEpochRebase: string;
-  readonly nextDistributedOhm: string;
+  readonly nextDistributedOgv: string;
 }
 
 export const loadAppDetails = createAsyncThunk(
@@ -35,15 +35,15 @@ export const loadAppDetails = createAsyncThunk(
         }
         protocolMetrics(first: 1, orderBy: timestamp, orderDirection: desc) {
           timestamp
-          ohmCirculatingSupply
-          sOhmCirculatingSupply
+          ogvCirculatingSupply
+          sOgvCirculatingSupply
           totalSupply
-          ohmPrice
+          ogvPrice
           marketCap
           totalValueLocked
           treasuryMarketValue
           nextEpochRebase
-          nextDistributedOhm
+          nextDistributedOgv
         }
       }
     `;
@@ -61,7 +61,7 @@ export const loadAppDetails = createAsyncThunk(
 
     const stakingTVL = parseFloat(graphData.data.protocolMetrics[0].totalValueLocked);
     // NOTE (appleseed): marketPrice from Graph was delayed, so get CoinGecko price
-    // const marketPrice = parseFloat(graphData.data.protocolMetrics[0].ohmPrice);
+    // const marketPrice = parseFloat(graphData.data.protocolMetrics[0].ogvPrice);
     let marketPrice;
     try {
       const originalPromiseResult = await dispatch(
@@ -75,7 +75,7 @@ export const loadAppDetails = createAsyncThunk(
     }
 
     const marketCap = parseFloat(graphData.data.protocolMetrics[0].marketCap);
-    const circSupply = parseFloat(graphData.data.protocolMetrics[0].ohmCirculatingSupply);
+    const circSupply = parseFloat(graphData.data.protocolMetrics[0].ogvCirculatingSupply);
     const totalSupply = parseFloat(graphData.data.protocolMetrics[0].totalSupply);
     const treasuryMarketValue = parseFloat(graphData.data.protocolMetrics[0].treasuryMarketValue);
     // const currentBlock = parseFloat(graphData.data._meta.block.number);
@@ -95,20 +95,20 @@ export const loadAppDetails = createAsyncThunk(
 
     const stakingContract = new ethers.Contract(
       addresses[networkID].STAKING_ADDRESS as string,
-      OlympusStakingv2ABI,
+      OlygiveStakingv2ABI,
       provider,
-    ) as OlympusStakingv2;
+    ) as OlygiveStakingv2;
 
-    const sohmMainContract = new ethers.Contract(
-      addresses[networkID].SOHM_ADDRESS as string,
-      sOHMv2,
+    const sogvMainContract = new ethers.Contract(
+      addresses[networkID].SOGV_ADDRESS as string,
+      sOGVv2,
       provider,
-    ) as SOhmv2;
+    ) as SOgvv2;
 
     // Calculating staking
     const epoch = await stakingContract.epoch();
     const stakingReward = epoch.distribute;
-    const circ = await sohmMainContract.circulatingSupply();
+    const circ = await sogvMainContract.circulatingSupply();
     const stakingRebase = Number(stakingReward.toString()) / Number(circ.toString());
     const fiveDayRate = Math.pow(1 + stakingRebase, 5 * 3) - 1;
     const stakingAPY = Math.pow(1 + stakingRebase, 365 * 3) - 1;
@@ -171,8 +171,8 @@ export const findOrLoadMarketPrice = createAsyncThunk(
 );
 
 /**
- * - fetches the OHM price from CoinGecko (via getTokenPrice)
- * - falls back to fetch marketPrice from ohm-dai contract
+ * - fetches the OGV price from CoinGecko (via getTokenPrice)
+ * - falls back to fetch marketPrice from ogv-dai contract
  * - updates the App.slice when it runs
  */
 const loadMarketPrice = createAsyncThunk("app/loadMarketPrice", async ({ networkID, provider }: IBaseAsyncThunk) => {
@@ -183,7 +183,7 @@ const loadMarketPrice = createAsyncThunk("app/loadMarketPrice", async ({ network
     // let mainnetProvider = (marketPrice = await getMarketPrice({ 1: NetworkID, provider }));
     marketPrice = marketPrice / Math.pow(10, 9);
   } catch (e) {
-    marketPrice = await getTokenPrice("olympus");
+    marketPrice = await getTokenPrice("olygive");
   }
   return { marketPrice };
 });
